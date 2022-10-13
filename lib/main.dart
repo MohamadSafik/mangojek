@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mangojek/bloc/food_bloc.dart';
-import 'package:mangojek/bloc/food_event.dart';
+import 'package:mangojek/ui/listproduct/bloc/food_bloc.dart';
+import 'package:mangojek/ui/listproduct/bloc/food_event.dart';
 
 import 'package:mangojek/ui/homepage.dart';
 

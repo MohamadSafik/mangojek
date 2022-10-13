@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mangojek/bloc/food_state.dart';
+import 'package:mangojek/ui/listproduct/bloc/food_state.dart';
 import 'package:mangojek/models/food_model.dart';
-import '../../../bloc/food_bloc.dart';
+import '../bloc/food_bloc.dart';
 
 class ListProduct extends StatelessWidget {
   const ListProduct({super.key});

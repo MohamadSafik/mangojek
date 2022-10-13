@@ -1,7 +1,7 @@
 import 'package:mangojek/repository/food_repository.dart';
 import 'package:bloc/bloc.dart';
-import '../bloc/food_event.dart';
-import '../bloc/food_state.dart';
+import 'food_event.dart';
+import 'food_state.dart';
 
 class FoodBloc extends Bloc<FoodEvent, FoodState> {
   final _foodRepository = FoodRepository();
