@@ -1,18 +1,73 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mangojek/bloc/counter_order_bloc.dart';
+import 'package:mangojek/bloc/searchbloc.dart';
 import 'package:mangojek/ui/listproduct/bloc/food_state.dart';
 import 'package:mangojek/models/food_model.dart';
 import '../bloc/food_bloc.dart';
 
 class ListProduct extends StatelessWidget {
-  const ListProduct({super.key});
+  ListProduct({super.key});
+  final SearchBloc showSearch = SearchBloc();
+  final CounterOrderBloc showCounter = CounterOrderBloc();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          leading: BlocBuilder<SearchBloc, bool>(
+            bloc: showSearch,
+            builder: (context, state) {
+              if (state == true) {
+                return IconButton(
+                    onPressed: () {
+                      showSearch.hiddenSearch();
+                    },
+                    icon: const Icon(Icons.close));
+              } else {
+                return IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(Icons.arrow_back),
+                );
+              }
+            },
+          ),
           actions: [
-            IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
+            BlocBuilder<SearchBloc, bool>(
+                bloc: showSearch,
+                builder: (context, state) {
+                  if (state == false) {
+                    return IconButton(
+                        onPressed: () {
+                          showSearch.showSearch();
+                          print(state);
+                        },
+                        icon: const Icon(Icons.search));
+                  } else {
+                    return Center(
+                      child: Container(
+                        padding: EdgeInsets.only(left: 10),
+                        height: 35,
+                        width: 240,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12)),
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: TextField(
+                              decoration: InputDecoration(
+                                  suffixIcon: IconButton(
+                                      onPressed: () {},
+                                      icon: const Icon(Icons.search)),
+                                  hintMaxLines: 1,
+                                  hintText: "search...")),
+                        ),
+                      ),
+                    );
+                  }
+                }),
             IconButton(onPressed: () {}, icon: const Icon(Icons.share)),
             IconButton(
                 onPressed: () {
@@ -70,7 +125,7 @@ class ListProduct extends StatelessWidget {
                 height: 70,
                 child: Row(
                   children: [
-                    Container(
+                    SizedBox(
                         height: 70,
                         width: 100,
                         child: Align(
@@ -85,7 +140,7 @@ class ListProduct extends StatelessWidget {
                                 Text("4.3"),
                               ],
                             ))),
-                    Container(
+                    SizedBox(
                       height: 70,
                       width: 100,
                       child: Row(
@@ -154,7 +209,7 @@ class ListProduct extends StatelessWidget {
                         itemCount: state.foods.length,
                         itemBuilder: (BuildContext context, int index) {
                           FoodModel food = state.foods[index];
-                          return Container(
+                          return SizedBox(
                               height: 600,
                               width: 200,
                               child: Column(
@@ -200,24 +255,76 @@ class ListProduct extends StatelessWidget {
                                     ),
                                   ),
                                   const SizedBox(height: 20),
-                                  GestureDetector(
-                                    onTap: () {},
-                                    child: Container(
-                                      width: 180,
-                                      padding: const EdgeInsets.all(5.0),
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(12),
-                                          border: Border.all(
-                                              color: Colors.blueAccent)),
-                                      child: const Align(
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          "Add",
-                                          maxLines: 1,
+                                  BlocBuilder<CounterOrderBloc, bool>(
+                                    bloc: showCounter,
+                                    builder: (context, state) {
+                                      return GestureDetector(
+                                        onTap: () {
+                                          if (state == false) {
+                                            showCounter.showCounterOrder();
+                                            showCounter.index(index);
+                                            print(state);
+                                            print(showCounter);
+                                            print(food);
+                                          } else {
+                                            showCounter.hiddenCounterOrder();
+                                            print(state);
+                                            print(showCounter);
+                                            print(index);
+                                          }
+                                        },
+                                        child:
+                                            BlocBuilder<CounterOrderBloc, bool>(
+                                          bloc: showCounter,
+                                          builder: (context, state) {
+                                            if (state == true) {
+                                              return Container(
+                                                width: 180,
+                                                padding:
+                                                    const EdgeInsets.all(5.0),
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            12),
+                                                    border: Border.all(
+                                                        color:
+                                                            Colors.blueAccent)),
+                                                child: const Align(
+                                                  alignment: Alignment.center,
+                                                  child: Text(
+                                                    "Add",
+                                                    maxLines: 1,
+                                                  ),
+                                                ),
+                                              );
+                                            } else {
+                                              return Container(
+                                                width: 180,
+                                                padding:
+                                                    const EdgeInsets.all(5.0),
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            12),
+                                                    border: Border.all(
+                                                        color:
+                                                            Colors.blueAccent)),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceAround,
+                                                  children: [
+                                                    Text("-"),
+                                                    Text("0"),
+                                                    Text("+")
+                                                  ],
+                                                ),
+                                              );
+                                            }
+                                          },
                                         ),
-                                      ),
-                                    ),
+                                      );
+                                    },
                                   )
                                 ],
                               ));

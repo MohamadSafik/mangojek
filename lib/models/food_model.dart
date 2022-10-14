@@ -15,10 +15,10 @@ class FoodModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
-    data['name'] = this.name;
-    data['price'] = this.price;
-    data['image'] = this.image;
-    data['id'] = this.id;
+    data['name'] = name;
+    data['price'] = price;
+    data['image'] = image;
+    data['id'] = id;
     return data;
   }
 }
