@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mangojek/bloc/counter_order_bloc.dart';
+import 'package:mangojek/modules/listproduct/bloc/counter_order_bloc.dart';
 import 'package:mangojek/bloc/searchbloc.dart';
-import 'package:mangojek/ui/listproduct/bloc/food_state.dart';
+import 'package:mangojek/modules/listproduct/bloc/food_state.dart';
 import 'package:mangojek/models/food_model.dart';
 import '../bloc/food_bloc.dart';
 
 class ListProduct extends StatelessWidget {
-  ListProduct({super.key});
-  final SearchBloc showSearch = SearchBloc();
-  final CounterOrderBloc showCounter = CounterOrderBloc();
+  const ListProduct({super.key});
 
   @override
   Widget build(BuildContext context) {
+    SearchBloc showSearch = context.read<SearchBloc>();
+    CounterOrderBloc showCounter = context.read<CounterOrderBloc>();
     return Scaffold(
         appBar: AppBar(
           leading: BlocBuilder<SearchBloc, bool>(
@@ -262,7 +262,7 @@ class ListProduct extends StatelessWidget {
                                         onTap: () {
                                           if (state == false) {
                                             showCounter.showCounterOrder();
-                                            showCounter.index(index);
+                                            // showCounter.index(index);
                                             print(state);
                                             print(showCounter);
                                             print(food);

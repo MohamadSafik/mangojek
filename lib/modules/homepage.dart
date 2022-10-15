@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mangojek/ui/listproduct/view/listproduct.dart';
+import 'package:mangojek/modules/listproduct/view/listproduct.dart';
 
 import '../bloc/counterbloc.dart';
 import '../bloc/dark_mode_bloc.dart';
 
 class HomePage extends StatelessWidget {
-  HomePage({super.key});
-  final CounterBloc counter = CounterBloc();
-  final DarkModeBloc darkMode = DarkModeBloc();
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final CounterBloc counter = context.read<CounterBloc>();
+    final DarkModeBloc darkMode = context.read<DarkModeBloc>();
     return Scaffold(
       appBar: AppBar(
         title: BlocBuilder<DarkModeBloc, bool>(
