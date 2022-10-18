@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mangojek_mobile/theme.dart';
+import 'package:mangojek/theme.dart';
 
 class CuisineItem extends StatelessWidget {
   final String imageUrl;
@@ -15,7 +15,7 @@ class CuisineItem extends StatelessWidget {
     return Container(
       width: 100,
       height: 100,
-      margin: EdgeInsets.only(right: 16),
+      margin: const EdgeInsets.only(right: 16),
       decoration: BoxDecoration(
         color: whiteColor,
         border: Border.all(

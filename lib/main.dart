@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mangojek/modules/auth/register/view/register.dart';
 import 'package:mangojek/modules/listproduct/bloc/counter_order_bloc.dart';
 import 'package:mangojek/bloc/dark_mode_bloc.dart';
 import 'package:mangojek/bloc/searchbloc.dart';
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
               // ThemeData(
               //   primarySwatch: Colors.blue,
               // ),
-              home: const HomePage(),
+              home: RegisterPage(),
             );
           },
         ));
